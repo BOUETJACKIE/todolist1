@@ -9,9 +9,11 @@ namespace todolist1.Models
     public class Category
     {
         public int ID { get; set; }
+
         [Required(ErrorMessage ="le champs nom est obligatoire")]
         [MinLength(5,ErrorMessage ="trop court")]
         //[RegularExpression("^[a-z]$")]
+
         public string Name { get; set; }
         //public ICollectio
 

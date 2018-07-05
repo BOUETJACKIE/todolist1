@@ -27,15 +27,82 @@ namespace todolist1.Controllers
 
             }
 
-            return Ok();
+            db.Categories.Add(category);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = category.ID }, category);
         }
 
+
+        public List<Category> GetCategories()
+        {
+
+
+            return db.Categories.ToList();
+
+        }
+
+        public IHttpActionResult GetCategory (int id)
+        {
+            var category = db.Categories.Find(id);
+
+            if ( category == null)
+
+            {
+                return NotFound();
+            }
+            return Ok (category);
+
+        }
+        public IHttpActionResult PutCategory(int id, Category category)
+        {
+
+           
+            if (id!=category.ID)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+
+            {
+                return BadRequest(ModelState);
+            }
+
+                db.Entry(category).State = System.Data.Entity.EntityState.Modified;
+            try
+            {
+                db.SaveChanges();
+
+            }
+            catch(Exception)
+            {
+                return NotFound();
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+                
+        }
+        public IHttpActionResult DeleteCategory(int id)
+        {
+            var cateSup = db.Categories.Find(id);
+            if (cateSup == null)
+                return NotFound();
+
+            db.Categories.Remove(cateSup);
+            db.SaveChanges();
+
+
+
+            return Ok("élément supprimé");
+        }
+        
         // réécriture de la méthode dispose pour libérer en mémoire le db context 
         // et donc la connexion
         // methode dispose appelée lorsque le IIs n'utilise plus le controller 
         protected override void Dispose(bool disposing)
         {
-            this.db.Dispose();//libère le db context
+            db.Dispose();//libère le db context
             base.Dispose(disposing);
         }
     }
