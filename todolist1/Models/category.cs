@@ -11,7 +11,7 @@ namespace todolist1.Models
         public int ID { get; set; }
         [Required(ErrorMessage ="le champs nom est obligatoire")]
         [MinLength(5,ErrorMessage ="trop court")]
-        [RegularExpression("^[a-z]$")]
+        //[RegularExpression("^[a-z]$")]
         public string Name { get; set; }
         //public ICollectio
 
