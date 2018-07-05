@@ -13,6 +13,8 @@ namespace todolist1.Models
         [MinLength(5,ErrorMessage ="trop court")]
         [RegularExpression("^[a-z]$")]
         public string Name { get; set; }
-        //public ICollection<Todo> Todos { get; set; }
+        //public ICollectio
+
+        //n<Todo> Todos { get; set; }
     }
 }
